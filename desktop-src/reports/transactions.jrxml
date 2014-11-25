@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="93d0a498-b9a4-4a9b-b4a5-a6ebf505a0e3">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="Date" class="java.lang.String"/>
+	<field name="Customer Name" class="java.lang.String"/>
+	<field name="Total Price" class="java.lang.String"/>
+	<field name="Invoice No." class="java.lang.String"/>
+	<variable name="TOTAL_PRICE" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble(($F{Total Price}).replaceAll(",", ""))]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="292bcf69-d7e6-4b2a-89f5-fe0c078d39c9" x="0" y="44" width="555" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[--ADDRESS--]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="292bcf69-d7e6-4b2a-89f5-fe0c078d39c9" x="0" y="1" width="555" height="17"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORDER PIZZA ONLINE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="292bcf69-d7e6-4b2a-89f5-fe0c078d39c9" x="0" y="31" width="555" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[--OWNER--]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="292bcf69-d7e6-4b2a-89f5-fe0c078d39c9" x="0" y="18" width="555" height="14"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ILOLO BRANCH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="292bcf69-d7e6-4b2a-89f5-fe0c078d39c9" x="0" y="64" width="555" height="17"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transaction Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="be99087f-9d48-4577-80df-cc273ca204be" x="0" y="1" width="130" height="30"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#999999"/>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5ad3906c-c4a3-4c09-abb7-4f5972afa6f1" x="193" y="1" width="226" height="30"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#999999"/>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="311ee9a5-d9ae-4d2f-9bcd-a02b8675343f" x="419" y="1" width="136" height="30"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#999999"/>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="693f5c14-7642-491b-9cc2-b0b6ed1f979b" x="129" y="1" width="64" height="30"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#999999"/>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice No.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="9402cb63-e17f-40b5-ae06-ef304e907ed1" x="0" y="0" width="130" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="68acf23a-34a7-45d6-919f-406a9369bd05" x="193" y="0" width="226" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Customer Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9192552b-f0c7-444b-9625-f404eef9671e" x="419" y="0" width="136" height="20"/>
+				<box rightPadding="20">
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Total Price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6e23332c-9c17-4c5e-aec9-a31132575479" x="129" y="0" width="64" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Invoice No.}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20">
+			<textField pattern="P #,##0.00">
+				<reportElement uuid="3870007f-dd37-4c4d-b794-0c2a647183b0" x="419" y="0" width="136" height="20"/>
+				<box rightPadding="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{TOTAL_PRICE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

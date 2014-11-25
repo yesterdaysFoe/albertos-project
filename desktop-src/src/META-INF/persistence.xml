@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="POSPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entities.StocksHistory</class>
+    <class>entities.Transactions</class>
+    <class>entities.User</class>
+    <class>entities.Wp1Commentmeta</class>
+    <class>entities.Wp1Comments</class>
+    <class>entities.Wp1Links</class>
+    <class>entities.Wp1Options</class>
+    <class>entities.Wp1TermTaxonomy</class>
+    <class>entities.Wp1Terms</class>
+    <class>entities.Wp1Usermeta</class>
+    <class>entities.Wp1Users</class>
+    <class>entities.Wp1WoocommerceAttributeTaxonomies</class>
+    <class>entities.Wp1WoocommerceDownloadableProductPermissions</class>
+    <class>entities.Wp1WoocommerceOrderItemmeta</class>
+    <class>entities.Wp1WoocommerceOrderItems</class>
+    <class>entities.Wp1WoocommerceTaxRateLocations</class>
+    <class>entities.Wp1WoocommerceTaxRates</class>
+    <class>entities.Wp1WoocommerceTermmeta</class>
+    <class>entities.Products</class>
+    <class>entities.Postmeta</class>
+    <class>entities.TermRelationships</class>
+    <properties>
+    </properties>
+  </persistence-unit>
+</persistence>
