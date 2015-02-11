@@ -57,6 +57,16 @@ public class TransactionsJpaController extends AbstractController<Transactions> 
         }
     }
 
+    public Object[] listBestSellerProduct() {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            return em.createNativeQuery("SELECT product_name, SUM(qty) AS sum_qty FROM transactions GROUP BY product_id ORDER BY sum_qty DESC").getResultList().toArray();
+        } finally {
+            em.close();
+        }
+    }
+    
     public String findLastId() {
 
         EntityManager em = null;

@@ -33,6 +33,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableModel;
 import org.jdesktop.observablecollections.ObservableCollections;
 import utils.CalendarUtil;
 import utils.MyUtil;
@@ -276,6 +277,13 @@ public class MainForm extends javax.swing.JFrame {
         jButton15 = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
         jTextField10 = new javax.swing.JTextField();
+        jPanel19 = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTable7 = new javax.swing.JTable();
+        jPanel20 = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jTextField13 = new javax.swing.JTextField();
         jPanel14 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
 
@@ -728,6 +736,11 @@ public class MainForm extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new java.awt.BorderLayout());
@@ -1168,10 +1181,10 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton17)
-                .addGap(501, 501, 501)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 618, Short.MAX_VALUE)
                 .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -1356,6 +1369,80 @@ public class MainForm extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Transactions", jPanel15);
 
+        jPanel19.setOpaque(false);
+        jPanel19.setLayout(new java.awt.BorderLayout());
+
+        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Rank", "Product Name", "Sold Qty."
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable7.getTableHeader().setReorderingAllowed(false);
+        jScrollPane9.setViewportView(jTable7);
+        if (jTable7.getColumnModel().getColumnCount() > 0) {
+            jTable7.getColumnModel().getColumn(0).setResizable(false);
+            jTable7.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        jPanel19.add(jScrollPane9, java.awt.BorderLayout.CENTER);
+
+        jPanel20.setOpaque(false);
+        jPanel20.setPreferredSize(new java.awt.Dimension(723, 70));
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 924, Short.MAX_VALUE)
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
+
+        jPanel19.add(jPanel20, java.awt.BorderLayout.SOUTH);
+
+        jPanel21.setOpaque(false);
+        jPanel21.setPreferredSize(new java.awt.Dimension(304, 50));
+
+        jLabel30.setText("Search:");
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(718, Short.MAX_VALUE))
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        jPanel19.add(jPanel21, java.awt.BorderLayout.PAGE_START);
+
+        jTabbedPane1.addTab("Best Seller", jPanel19);
+
         jPanel1.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
         jPanel14.setBackground(new java.awt.Color(255, 245, 137));
@@ -1499,7 +1586,6 @@ public class MainForm extends javax.swing.JFrame {
                 if (Double.parseDouble(jFormattedTextField5.getValue().toString()) > 0) {
                     MyUtil.showInfoMessage(this, "Please issue change " + jFormattedTextField5.getText() + " to " + jTextField2.getText());
                 }
-
 
                 int confirm1 = JOptionPane.showConfirmDialog(this, "Print Invoice? ", "Confirm", JOptionPane.YES_NO_OPTION);
                 if (confirm1 == 0) {
@@ -1680,6 +1766,25 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextField1ActionPerformed
 
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        if (jTabbedPane1.getSelectedIndex() == 3) {
+            TransactionsJpaController transactionsJpaController = new TransactionsJpaController(Config.getInstance());
+
+            final Object[] list = transactionsJpaController.listBestSellerProduct();
+            DefaultTableModel dtm = (DefaultTableModel) jTable7.getModel();
+            dtm.setRowCount(0);
+            for (int i = 0; i < list.length; i++) {
+                Object[] values = (Object[]) list[i];
+                Object[] row = {i + 1, values[0], values[1]};
+                dtm.addRow(row);
+            }
+        }
+
+        if (jTabbedPane1.getSelectedIndex() == 1F) {
+            checkOrder();
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -1735,6 +1840,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1750,7 +1856,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -1764,6 +1873,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private com.toedter.components.JSpinField jSpinField1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
@@ -1771,6 +1881,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
+    private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
@@ -1778,6 +1889,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -1818,6 +1930,7 @@ public class MainForm extends javax.swing.JFrame {
         new SearchTable().activate(jTable3, jTextField1, 0, 1, 2, 3, 4, 5, 6);
         new SearchTable().activate(jTable5, jTextField10, 0, 1, 2, 3, 4, 5, 6);
         new SearchTable().activate(jTable6, jTextField11, 0, 1, 2, 3, 4, 5, 6);
+        new SearchTable().activate(jTable7, jTextField13, 0, 1, 2, 3, 4, 5, 6);
 
         jTable4.getColumnModel().getColumn(1).setCellRenderer(new TextAreaRenderer());
     }
