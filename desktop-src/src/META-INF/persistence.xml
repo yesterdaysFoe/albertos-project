@@ -23,6 +23,7 @@
     <class>entities.Products</class>
     <class>entities.Postmeta</class>
     <class>entities.TermRelationships</class>
+    <class>entities.Pizzaterms</class>
     <properties>
     </properties>
   </persistence-unit>

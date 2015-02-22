@@ -42,7 +42,9 @@ public class Wp1TermRelationshipsJpaController extends AbstractController<TermRe
     }
 
     private String findIdOfStatus(EntityManager em, String orderStatus) {
-        String completedId = (String) em.createNativeQuery("SELECT t.term_id FROM pizzaterms t WHERE t.name = ?1").setParameter(1, orderStatus)
+        em = getEntityManager();
+        String completedId = em.createQuery("SELECT t.termId FROM Pizzaterms t WHERE t.name = ?1")
+                .setParameter(1, orderStatus)
                 .setMaxResults(1)
                 .getSingleResult().toString();
         return completedId;

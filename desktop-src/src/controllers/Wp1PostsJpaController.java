@@ -62,7 +62,7 @@ public class Wp1PostsJpaController extends AbstractController<Products> implemen
                     + "LEFT JOIN billingPhone ph ON ph.ID = post.ID "
                     + "LEFT JOIN billingTotalOrder o ON o.ID = post.ID "
                     + "JOIN billingOrderStatus s ON s.ID = post.ID "
-                    + "WHERE post.post_type = 'shop_order' and post_status = 'publish'").getResultList();
+                    + "WHERE post.post_type = 'shop_order' and post_status = 'publish' ORDER BY post.ID DESC").getResultList();
             for (Object[] objects : oList) {
                 Orders order = new Orders();
                 order.setId(objects[0].toString());
