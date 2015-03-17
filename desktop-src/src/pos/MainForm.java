@@ -13,11 +13,13 @@ import classes.TextAreaRenderer;
 import classes.TransactionVo;
 import config.Config;
 import controllers.TransactionsJpaController;
+import controllers.UserJpaController;
 import controllers.Wp1PostmetaJpaController;
 import controllers.Wp1PostsJpaController;
 import controllers.Wp1TermRelationshipsJpaController;
 import controllers.exceptions.NonexistentEntityException;
 import entities.Transactions;
+import entities.User;
 import java.awt.Cursor;
 import java.awt.HeadlessException;
 import java.text.ParseException;
@@ -58,8 +60,11 @@ public class MainForm extends javax.swing.JFrame {
     private Orders currentOrder;
     private List<ProductVariations> pvList;
     private Sell selectedSell;
+    private User currentUser;
+    private List<User> users;
 
     {
+        users = ObservableCollections.observableList(new ArrayList<User>());
         orders = ObservableCollections.observableList(new ArrayList<Orders>());
         products = ObservableCollections.observableList(new ArrayList<Products>());
         sells = ObservableCollections.observableList(new ArrayList<Sell>());
@@ -85,12 +90,24 @@ public class MainForm extends javax.swing.JFrame {
         return instance;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
     public List<Sell> getTempSells() {
         return tempSells;
     }
 
     public void setTempSells(List<Sell> tempSells) {
         this.tempSells = tempSells;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
     //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -216,6 +233,18 @@ public class MainForm extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jTable8 = new javax.swing.JTable();
+        usersDialog = new javax.swing.JDialog();
+        jPanel12 = new javax.swing.JPanel();
+        jButton24 = new javax.swing.JButton();
+        jButton25 = new javax.swing.JButton();
+        jPanel25 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordField2 = new javax.swing.JPasswordField();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -284,6 +313,16 @@ public class MainForm extends javax.swing.JFrame {
         jPanel21 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jTextField13 = new javax.swing.JTextField();
+        jPanel22 = new javax.swing.JPanel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jTable9 = new javax.swing.JTable();
+        jPanel23 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
+        jPanel24 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        jTextField14 = new javax.swing.JTextField();
         jPanel14 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
 
@@ -724,6 +763,93 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                     .addGap(51, 51, 51)))
         );
+
+        usersDialog.setBounds(new java.awt.Rectangle(0, 0, 350, 235));
+
+        jButton24.setText("Save");
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton24ActionPerformed(evt);
+            }
+        });
+
+        jButton25.setText("Cancel");
+        jButton25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton25ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addContainerGap(257, Short.MAX_VALUE)
+                .addComponent(jButton24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton25)
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton25)
+                    .addComponent(jButton24))
+                .addContainerGap())
+        );
+
+        usersDialog.getContentPane().add(jPanel12, java.awt.BorderLayout.SOUTH);
+
+        jLabel28.setText("Username:");
+
+        jLabel29.setText("Password:");
+
+        jLabel32.setText("Confirm Password:");
+
+        jCheckBox1.setText("Active");
+
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel32))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                    .addComponent(jPasswordField1)
+                    .addComponent(jTextField8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox1)
+                .addContainerGap(95, Short.MAX_VALUE))
+        );
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        usersDialog.getContentPane().add(jPanel25, java.awt.BorderLayout.CENTER);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -1393,6 +1519,7 @@ public class MainForm extends javax.swing.JFrame {
         if (jTable7.getColumnModel().getColumnCount() > 0) {
             jTable7.getColumnModel().getColumn(0).setResizable(false);
             jTable7.getColumnModel().getColumn(1).setResizable(false);
+            jTable7.getColumnModel().getColumn(2).setHeaderValue("Sold Qty.");
         }
 
         jPanel19.add(jScrollPane9, java.awt.BorderLayout.CENTER);
@@ -1442,6 +1569,125 @@ public class MainForm extends javax.swing.JFrame {
         jPanel19.add(jPanel21, java.awt.BorderLayout.PAGE_START);
 
         jTabbedPane1.addTab("Best Seller", jPanel19);
+
+        jPanel22.setOpaque(false);
+        jPanel22.setLayout(new java.awt.BorderLayout());
+
+        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Username", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable9.getTableHeader().setReorderingAllowed(false);
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${users}");
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable9);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${username}"));
+        columnBinding.setColumnName("Username");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${active}"));
+        columnBinding.setColumnName("Active");
+        columnBinding.setColumnClass(Boolean.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane11.setViewportView(jTable9);
+        if (jTable9.getColumnModel().getColumnCount() > 0) {
+            jTable9.getColumnModel().getColumn(0).setResizable(false);
+            jTable9.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        jPanel22.add(jScrollPane11, java.awt.BorderLayout.CENTER);
+
+        jPanel23.setOpaque(false);
+        jPanel23.setPreferredSize(new java.awt.Dimension(723, 70));
+
+        jButton2.setText("Add");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton11.setText("Edit");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jButton16.setText("Delete");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton16)
+                .addContainerGap(737, Short.MAX_VALUE))
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton11)
+                    .addComponent(jButton16))
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+
+        jPanel22.add(jPanel23, java.awt.BorderLayout.SOUTH);
+
+        jPanel24.setOpaque(false);
+        jPanel24.setPreferredSize(new java.awt.Dimension(304, 50));
+
+        jLabel31.setText("Search:");
+
+        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
+        jPanel24.setLayout(jPanel24Layout);
+        jPanel24Layout.setHorizontalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(718, Short.MAX_VALUE))
+        );
+        jPanel24Layout.setVerticalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        jPanel22.add(jPanel24, java.awt.BorderLayout.PAGE_START);
+
+        jTabbedPane1.addTab("Users", jPanel22);
 
         jPanel1.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
@@ -1783,22 +2029,124 @@ public class MainForm extends javax.swing.JFrame {
         if (jTabbedPane1.getSelectedIndex() == 1F) {
             checkOrder();
         }
+
+        if (jTabbedPane1.getSelectedIndex() == 4) {
+            refreshUsers();
+        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jTextField8.setText(null);
+        jPasswordField1.setText(null);
+        jPasswordField2.setText(null);
+        jCheckBox1.setSelected(false);
+        setCurrentUser(new User());
+        usersDialog.setLocationRelativeTo(this);
+        usersDialog.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        if (jTable9.getSelectedRowCount() == 1) {
+            int r = jTable9.convertRowIndexToModel(jTable9.getSelectedRow());
+            User u = getUsers().get(r);
+            setCurrentUser(u);
+            jTextField8.setText(u.getUsername());
+            jPasswordField1.setText(u.getPassword());
+            jPasswordField2.setText(u.getPassword());
+            usersDialog.setLocationRelativeTo(this);
+            usersDialog.setVisible(true);
+        } else {
+            MyUtil.showErrorMessage(this, "Please select first");
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
+    private void refreshUsers() {
+        getUsers().clear();
+        getUsers().addAll(new UserJpaController(Config.getInstance()).findAll());
+    }
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        if (jTable9.getSelectedRowCount() == 1) {
+            if (getUsers().size() > 1) {
+                int confirm = JOptionPane.showConfirmDialog(this, "Continue to delete?", "Confirm", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.OK_OPTION) {
+                    int r = jTable9.convertRowIndexToModel(jTable9.getSelectedRow());
+                    User u = getUsers().get(r);
+                    try {
+                        new UserJpaController(Config.getInstance()).destroy(u);
+                        refreshUsers();
+                        MyUtil.showSuccessMessage(this, "Successfully Deleted");
+                    } catch (NonexistentEntityException ex) {
+                        Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                        MyUtil.showErrorMessage(this, ex.getMessage());
+                    }
+                }
+            } else {
+                MyUtil.showErrorMessage(this, "Cannot delete last user");
+            }
+        } else {
+            MyUtil.showErrorMessage(this, "Please select first");
+        }
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+        final String password1 = new String(jPasswordField1.getPassword());
+        final String password2 = new String(jPasswordField2.getPassword());
+        if (!jTextField8.getText().isEmpty() && !password1.isEmpty()) {
+            getCurrentUser().setActive(jCheckBox1.isSelected());
+            checkpassword(password1, password2);
+            if (getCurrentUser().getId() == null) {
+                new UserJpaController(Config.getInstance()).create(getCurrentUser());
+            } else {
+                edit();
+            }
+            MyUtil.showSuccessMessage(this, "Successfully Saved");
+            refreshUsers();
+            usersDialog.setVisible(false);
+        } else {
+            MyUtil.showErrorMessage(this, "All fields should not be empty.");
+        }
+    }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void edit() {
+        try {
+            new UserJpaController(Config.getInstance()).edit(getCurrentUser());
+        } catch (Exception ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            MyUtil.showErrorMessage(this, ex.getMessage());
+        }
+    }
+
+    private void checkpassword(final String password1, final String password2) {
+        if (password1.equals(password2)) {
+            getCurrentUser().setPassword(password1);
+            getCurrentUser().setUsername(jTextField8.getText());
+        } else {
+            MyUtil.showErrorMessage(this, "Password does not match");
+        }
+    }
+
+    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
+        usersDialog.setVisible(false);
+    }//GEN-LAST:event_jButton25ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton20;
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
+    private javax.swing.JButton jButton24;
+    private javax.swing.JButton jButton25;
     private javax.swing.JButton jButton26;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1807,6 +2155,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
@@ -1839,8 +2188,12 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1850,6 +2203,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
@@ -1860,13 +2214,20 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -1883,6 +2244,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
+    private javax.swing.JTable jTable9;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
@@ -1890,13 +2252,16 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JDialog usersDialog;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     private Task task;
@@ -1931,6 +2296,7 @@ public class MainForm extends javax.swing.JFrame {
         new SearchTable().activate(jTable5, jTextField10, 0, 1, 2, 3, 4, 5, 6);
         new SearchTable().activate(jTable6, jTextField11, 0, 1, 2, 3, 4, 5, 6);
         new SearchTable().activate(jTable7, jTextField13, 0, 1, 2, 3, 4, 5, 6);
+        new SearchTable().activate(jTable9, jTextField14, 0, 1, 2, 3, 4, 5, 6);
 
         jTable4.getColumnModel().getColumn(1).setCellRenderer(new TextAreaRenderer());
     }
@@ -2022,8 +2388,10 @@ public class MainForm extends javax.swing.JFrame {
         Transactions childTransaction = new Transactions();
         try {
             childTransaction.setInvoice(MyUtil.df.parse(jTextField12.getText()).intValue());
+
         } catch (ParseException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainForm.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         childTransaction.setParrentTransaction(parrentTransaction);
         prepareTransactionPrice(childTransaction, s.getQty(), s.getPrice(), s.getTotalPrice(), jFormattedTextField4.getText());
@@ -2046,8 +2414,10 @@ public class MainForm extends javax.swing.JFrame {
         Transactions parrentTransaction = creatParrentTransaction();
         try {
             parrentTransaction.setInvoice(MyUtil.df.parse(jTextField12.getText()).intValue());
+
         } catch (ParseException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainForm.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         parrentTransaction.setOrderId(getCurrentOrder() == null ? null : getCurrentOrder().getId());
         transactionsJpaController.create(parrentTransaction);
@@ -2093,10 +2463,13 @@ public class MainForm extends javax.swing.JFrame {
         transaction.setActive(false);
         try {
             controller.edit(transaction);
+
         } catch (NonexistentEntityException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainForm.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainForm.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -2164,6 +2537,7 @@ public class MainForm extends javax.swing.JFrame {
         final ProductVariations pv = (ProductVariations) jComboBox1.getSelectedItem();
         if (pv != null) {
             s.setVariationID(pv.getId());
+
         }
 
     }
@@ -2222,6 +2596,7 @@ public class MainForm extends javax.swing.JFrame {
 
         alert = new OrderAlert();
         alert.execute();
+
     }
 
     class OrderAlert extends SwingWorker<Void, Void> {

@@ -29,6 +29,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
+    @Basic(optional = false)
+    @Column(name = "active")
+    private boolean active;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -102,6 +105,14 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "pos.entities.User[ id=" + id + " ]";
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
     
 }
