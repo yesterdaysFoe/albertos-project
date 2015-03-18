@@ -23,6 +23,7 @@ public class LoginForm extends javax.swing.JDialog {
 
     private static LoginForm instance;
     private Task task;
+    public static User user;
 
     public LoginForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -220,6 +221,7 @@ public class LoginForm extends javax.swing.JDialog {
 
     private void performVerification() {
         try {
+            jButton1.setEnabled(false);
             Thread.sleep(500);
             updateProgressBar(6, "Connecting to database...");
             testDbConnection();
@@ -235,10 +237,12 @@ public class LoginForm extends javax.swing.JDialog {
             updateProgressBar(0, "");
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
             MyUtil.showErrorMessage(this, ex.getMessage());
+        } finally {
+            jButton1.setEnabled(true);
         }
     }
 
-    private void compareUsernameInDb() throws NonexistentEntityException, InterruptedException {
+    private void compareUsernameInDb() throws NonexistentEntityException, InterruptedException, Exception {
         User ua = new UserJpaController(Config.getInstance()).findUsername(jTextField1.getText().trim());
         Thread.sleep(500);
         updateProgressBar(9, "Veryfiying password...");
@@ -246,14 +250,18 @@ public class LoginForm extends javax.swing.JDialog {
         verifyPassword(ua);
     }
 
-    private void verifyPassword(User ua) {
+    private void verifyPassword(User ua) throws Exception {
         if (ua.getPassword() != null && ua.getUsername() != null) {
-            if (ua.getPassword().equals(EncrypUtil.md5(new String(jPasswordField1.getPassword())))) {
-                hideLoginForm();
-                MyUtil.showSuccessMessage(MainForm.getInstance(), "Good Day! System is ready.");
-            } else {
-                updateProgressBar(0, "");
-                MyUtil.showErrorMessage(MainForm.getInstance(), "Incorrect password.");
+            if (ua.getActive()) {
+                if (ua.getPassword().equals(EncrypUtil.md5(new String(jPasswordField1.getPassword())))) {
+                    user = ua;
+                    hideLoginForm();
+                    MyUtil.showSuccessMessage(MainForm.getInstance(), "Good Day! System is ready.");
+                } else {
+                    throw new Exception("Incorrect password.");
+                }
+            }else{
+                throw new Exception("User is no longer authorized");
             }
         }
     }

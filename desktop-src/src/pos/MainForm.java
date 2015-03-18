@@ -38,6 +38,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.observablecollections.ObservableCollections;
 import utils.CalendarUtil;
+import utils.EncrypUtil;
 import utils.MyUtil;
 import utils.PrintUtil;
 import utils.SearchTable;
@@ -2036,25 +2037,42 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jTextField8.setText(null);
-        jPasswordField1.setText(null);
-        jPasswordField2.setText(null);
-        jCheckBox1.setSelected(false);
-        setCurrentUser(new User());
-        usersDialog.setLocationRelativeTo(this);
-        usersDialog.setVisible(true);
+        if (LoginForm.user.getUsername().equals("admin")) {
+            jTextField8.setText(null);
+            jTextField8.setEditable(true);
+            jPasswordField1.setText(null);
+            jPasswordField2.setText(null);
+            jCheckBox1.setSelected(false);
+            jCheckBox1.setVisible(true);
+            setCurrentUser(new User());
+            usersDialog.setLocationRelativeTo(this);
+            usersDialog.setVisible(true);
+        } else {
+            MyUtil.showErrorMessage(this, "Unauthorize User");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         if (jTable9.getSelectedRowCount() == 1) {
+            jTextField8.setEditable(true);
+            jCheckBox1.setVisible(true);
             int r = jTable9.convertRowIndexToModel(jTable9.getSelectedRow());
             User u = getUsers().get(r);
-            setCurrentUser(u);
-            jTextField8.setText(u.getUsername());
-            jPasswordField1.setText(u.getPassword());
-            jPasswordField2.setText(u.getPassword());
-            usersDialog.setLocationRelativeTo(this);
-            usersDialog.setVisible(true);
+//            jPasswordField1.setText(u.getPassword());
+//            jPasswordField2.setText(u.getPassword());
+            if (LoginForm.user.getUsername().equals("admin") || LoginForm.user.getId().equals(u.getId())) {
+                if (u.getUsername().equals("admin")) {
+                    jCheckBox1.setVisible(false);
+                    jTextField8.setEditable(false);
+                }
+                setCurrentUser(u);
+                jCheckBox1.setSelected(u.getActive());
+                jTextField8.setText(u.getUsername());
+                usersDialog.setLocationRelativeTo(this);
+                usersDialog.setVisible(true);
+            } else {
+                MyUtil.showErrorMessage(this, "Unauthorize User");
+            }
         } else {
             MyUtil.showErrorMessage(this, "Please select first");
         }
@@ -2065,22 +2083,26 @@ public class MainForm extends javax.swing.JFrame {
     }
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         if (jTable9.getSelectedRowCount() == 1) {
-            if (getUsers().size() > 1) {
+            if (LoginForm.user.getUsername().equals("admin")) {
                 int confirm = JOptionPane.showConfirmDialog(this, "Continue to delete?", "Confirm", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.OK_OPTION) {
                     int r = jTable9.convertRowIndexToModel(jTable9.getSelectedRow());
                     User u = getUsers().get(r);
-                    try {
-                        new UserJpaController(Config.getInstance()).destroy(u);
-                        refreshUsers();
-                        MyUtil.showSuccessMessage(this, "Successfully Deleted");
-                    } catch (NonexistentEntityException ex) {
-                        Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-                        MyUtil.showErrorMessage(this, ex.getMessage());
+                    if (!u.getUsername().equals("admin")) {
+                        try {
+                            new UserJpaController(Config.getInstance()).destroy(u);
+                            refreshUsers();
+                            MyUtil.showSuccessMessage(this, "Successfully Deleted");
+                        } catch (NonexistentEntityException ex) {
+                            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                            MyUtil.showErrorMessage(this, ex.getMessage());
+                        }
+                    } else {
+                        MyUtil.showErrorMessage(this, "Unauthorize User");
                     }
                 }
             } else {
-                MyUtil.showErrorMessage(this, "Cannot delete last user");
+                MyUtil.showErrorMessage(this, "Unauthorize User");
             }
         } else {
             MyUtil.showErrorMessage(this, "Please select first");
@@ -2117,7 +2139,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void checkpassword(final String password1, final String password2) {
         if (password1.equals(password2)) {
-            getCurrentUser().setPassword(password1);
+            getCurrentUser().setPassword(EncrypUtil.md5(password1));
             getCurrentUser().setUsername(jTextField8.getText());
         } else {
             MyUtil.showErrorMessage(this, "Password does not match");
