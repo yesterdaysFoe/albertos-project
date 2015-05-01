@@ -1536,7 +1536,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="443" max="32767" attributes="0"/>
+                              <EmptySpace pref="479" max="32767" attributes="0"/>
                               <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1616,7 +1616,7 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton20">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Processing"/>
+                            <Property name="text" type="java.lang.String" value="Process"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton20ActionPerformed"/>
@@ -1624,7 +1624,7 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton21">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Cancelled"/>
+                            <Property name="text" type="java.lang.String" value="Cancel"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton21ActionPerformed"/>
