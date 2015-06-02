@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DATE" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<field name="Date" class="java.lang.String"/>
+	<field name="Customer Name" class="java.lang.String"/>
+	<field name="Total Price" class="java.lang.String"/>
+	<field name="Invoice No." class="java.lang.String"/>
+	<variable name="TOTAL_PRICE" class="java.lang.String" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble(($F{Total Price}).replaceAll(",", ""))]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="16" width="553" height="14"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ILOLO CITY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="3" width="553" height="17"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALBERTO'S PIZZA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="25" width="553" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[E. Lopez St., Jaro, Iloilo City]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="34" width="553" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tel. 503 2006 | Mobile 0999 882 15 53]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="74" y="1" width="130" height="30"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#999999"/>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="1" width="216" height="30"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#999999"/>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="1" width="136" height="30"/>
+				<box rightPadding="10">
+					<topPen lineWidth="1.0" lineColor="#999999"/>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="1" width="74" height="30"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#999999"/>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice No.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="203" y="0" width="216" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Customer Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="0" width="136" height="20"/>
+				<box rightPadding="20">
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Total Price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="74" y="0" width="130" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="73" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Invoice No.}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20">
+			<textField>
+				<reportElement x="419" y="0" width="136" height="20"/>
+				<box rightPadding="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="0" width="83" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Date Generated:]]></text>
+			</staticText>
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss Z">
+				<reportElement x="84" y="0" width="143" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

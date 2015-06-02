@@ -22,6 +22,8 @@ import entities.Transactions;
 import entities.User;
 import java.awt.Cursor;
 import java.awt.HeadlessException;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -270,6 +272,7 @@ public class MainForm extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jLabel25 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
+        jCheckBox2 = new javax.swing.JCheckBox();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
@@ -1022,39 +1025,51 @@ public class MainForm extends javax.swing.JFrame {
 
         jTextField12.setEditable(false);
 
+        jCheckBox2.setText("Add Location Charge");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addGap(9, 9, 9)
-                        .addComponent(jButton9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
-                    .addComponent(jButton10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFormattedTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel25)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jButton4)
+                                .addGap(9, 9, 9)
+                                .addComponent(jButton9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3))
+                            .addComponent(jButton10))
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jFormattedTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
         );
 
         jPanel8Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton3, jButton4, jButton9});
@@ -1072,7 +1087,8 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton3)
-                    .addComponent(jButton9))
+                    .addComponent(jButton9)
+                    .addComponent(jCheckBox2))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -1841,7 +1857,8 @@ public class MainForm extends javax.swing.JFrame {
                     param.put("invoicNo", jTextField12.getText());
                     param.put("vat", MyUtil.decimalFormat.format((Double.parseDouble(jFormattedTextField3.getText().replaceAll(",", "")) * 0.12)));
                     param.put("total", jTextField3.getText());
-                    print.Printing(jTable4.getModel(), "reports/invoice.jrxml", "Invoice", param, null);
+                    param.put("user", LoginForm.user.getUsername());
+                    print.Printing(jTable4.getModel(), "reports/invoice1.jrxml", "Invoice", param, null);
                 }
                 MyUtil.showSuccessMessage(this, "Transaction has been saved succesfully.");
                 reset();
@@ -1915,7 +1932,7 @@ public class MainForm extends javax.swing.JFrame {
         PrintUtil print = new PrintUtil();
         Map param = new HashMap<>();
         param.put("total", jTextField6.getText());
-        print.Printing(jTable5.getModel(), "reports/transactions.jrxml", "Transactions", param, null);
+        print.Printing(jTable5.getModel(), "reports/transactions1.jrxml", "Transactions", param, null);
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
@@ -2150,6 +2167,39 @@ public class MainForm extends javax.swing.JFrame {
         usersDialog.setVisible(false);
     }//GEN-LAST:event_jButton25ActionPerformed
 
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        if (jCheckBox2.isSelected()) {
+            final String locationChargeStr = MyUtil.decimalFormat.format(getLocationCharge());
+            Sell s = new Sell();
+            final Products products1 = new Products();
+            products1.setProductName("Delivery Charge");
+            products1.setPrice(locationChargeStr);
+            products1.setProductDetails("Delivery Charge");
+            s.setProduct(products1);
+            s.setPrice(locationChargeStr);
+            s.setQty(1);
+            s.setTotalPrice(locationChargeStr);
+            getSells().add(s);
+            total();
+        } else {
+            removeLocationCharge();
+        }
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+    private void removeLocationCharge() {
+        int index = 0;
+        boolean hasMatch = false;
+        for (int i = 0; i < getSells().size(); i++) {
+            Sell s = getSells().get(i);
+
+            if (s.getProduct().getProductName().equals("Delivery Charge")) {
+                hasMatch = true;
+                index = i;
+            }
+        }
+        if (hasMatch) {
+            getSells().remove(index);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -2178,6 +2228,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JComboBox jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
@@ -2352,6 +2403,7 @@ public class MainForm extends javax.swing.JFrame {
         jTextField4.setText(null);
         jTextField5.setText(null);
         jFormattedTextField3.setText(null);
+        jCheckBox2.setSelected(false);
     }
 
     private void populateProductInfoFields(String productName, int qty, double price, double totalPrice) {
@@ -2401,7 +2453,9 @@ public class MainForm extends javax.swing.JFrame {
         transactions.setCustomerContactNumber(jTextField4.getText());
         transactions.setCustomerEmail(jTextField5.getText());
 
-        transactions.setProductId(productId);
+        if (productId != null) {
+            transactions.setProductId(productId);
+        }
         transactions.setProductName(productName);
         transactions.setProductDetails(productDetails);
     }
@@ -2417,7 +2471,7 @@ public class MainForm extends javax.swing.JFrame {
         }
         childTransaction.setParrentTransaction(parrentTransaction);
         prepareTransactionPrice(childTransaction, s.getQty(), s.getPrice(), s.getTotalPrice(), jFormattedTextField4.getText());
-        prepareTransactionProduct(childTransaction, Long.parseLong(s.getProduct().getId()), s.getProduct().getProductName() + s.getProduct().getAddText(), s.getProduct().getProductDetails());
+        prepareTransactionProduct(childTransaction, s.getProduct().getId() != null ? Long.parseLong(s.getProduct().getId()) : null, s.getProduct().getProductName() + s.getProduct().getAddText(), s.getProduct().getProductDetails());
         transactionsJpaController.create(childTransaction);
     }
 
@@ -2562,6 +2616,52 @@ public class MainForm extends javax.swing.JFrame {
 
         }
 
+    }
+    Double locationCharge;
+
+    private double getLocationCharge() {
+        if (locationCharge == null) {
+            Properties prop = new Properties();
+            FileInputStream fileInputStream = null;
+            try {
+                fileInputStream = new FileInputStream("conf/constant.properties");
+                prop.load(fileInputStream);
+            } catch (IOException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    fileInputStream.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            return Double.parseDouble(prop.getProperty("location.charge"));
+        }
+        return locationCharge;
+    }
+
+    private void addLocationCharge(Transactions parrentTransaction, TransactionsJpaController transactionsJpaController) {
+        Transactions childTransaction = new Transactions();
+        try {
+            childTransaction.setInvoice(MyUtil.df.parse(jTextField12.getText()).intValue());
+
+        } catch (ParseException ex) {
+            Logger.getLogger(MainForm.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        childTransaction.setParrentTransaction(parrentTransaction);
+        prepareTransactionPrice(childTransaction, 0, Double.toString(getLocationCharge()), Double.toString(getLocationCharge()), jFormattedTextField4.getText());
+
+        childTransaction.setProductDetails("Location Charge");
+        childTransaction.setDate(new Date());
+        childTransaction.setCustomerName(jTextField2.getText());
+        childTransaction.setCustomerAddress(jTextField3.getText());
+        childTransaction.setCustomerContactNumber(jTextField4.getText());
+        childTransaction.setCustomerEmail(jTextField5.getText());
+        childTransaction.setProductId(null);
+        childTransaction.setProductName("Location Charge");
+        childTransaction.setProductDetails("Delivery Charge");
+        transactionsJpaController.create(childTransaction);
     }
 
     class Task extends SwingWorker<Void, Void> {
