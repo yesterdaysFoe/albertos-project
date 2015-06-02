@@ -1843,7 +1843,7 @@ public class MainForm extends javax.swing.JFrame {
         if (Double.parseDouble(jFormattedTextField4.getValue().toString()) >= Double.parseDouble(jFormattedTextField6.getValue().toString())) {
             int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to continue? ", "Confirm", JOptionPane.YES_NO_OPTION);
             if (confirm == 0) {
-                processAction();
+//                processAction();
 
                 jDialog2.setVisible(false);
                 if (Double.parseDouble(jFormattedTextField5.getValue().toString()) > 0) {
@@ -1861,7 +1861,7 @@ public class MainForm extends javax.swing.JFrame {
                     print.Printing(jTable4.getModel(), "reports/invoice1.jrxml", "Invoice", param, null);
                 }
                 MyUtil.showSuccessMessage(this, "Transaction has been saved succesfully.");
-                reset();
+//                reset();
             }
         } else {
             MyUtil.showErrorMessage(this, "insufficient amount tender.");
