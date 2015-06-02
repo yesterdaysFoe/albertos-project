@@ -1025,7 +1025,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jTextField12.setEditable(false);
 
-        jCheckBox2.setText("Add Location Charge");
+        jCheckBox2.setText("Add Delivery Charge");
         jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox2ActionPerformed(evt);
