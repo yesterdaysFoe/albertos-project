@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="288" pageHeight="360" columnWidth="248" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="invoicNo" class="java.lang.String"/>
+	<parameter name="vat" class="java.lang.String"/>
+	<parameter name="user" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<field name="Qty" class="java.lang.Integer"/>
+	<field name="Name" class="java.lang.String"/>
+	<field name="@Price" class="java.lang.String"/>
+	<field name="Total Price" class="java.lang.String"/>
+	<variable name="TOTAL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble(($F{Total Price}).replaceAll(",",""))]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="78" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="248" height="17"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALBERTO'S PIZZA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="248" height="14"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ILOLO CITY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="248" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[E. Lopez St., Jaro, Iloilo City]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="54" y="58" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{invoicNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="58" width="54" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Invoice No.:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="31" width="248" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tel. 503 2006 | Mobile 0999 882 15 53]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="12" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="42" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Qty.
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="0" width="54" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[@Price
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="196" y="0" width="52" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total Price
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="0" width="100" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Name
+                ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="42" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Qty}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="42" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="142" y="0" width="54" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{@Price}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="196" y="0" width="52" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Total Price}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="64">
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss Z">
+				<reportElement x="0" y="36" width="248" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="44" width="248" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Thank you!
+                ]]></text>
+			</staticText>
+			<textField pattern="P #,##0.00" isBlankWhenNull="true">
+				<reportElement x="178" y="4" width="69" height="13"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{vat}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="142" y="4" width="37" height="13"/>
+				<textElement/>
+				<text><![CDATA[VAT:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="17" width="37" height="13"/>
+				<textElement/>
+				<text><![CDATA[Total:
+                ]]></text>
+			</staticText>
+			<textField pattern="P #,##0.00" isBlankWhenNull="true">
+				<reportElement x="178" y="17" width="69" height="13"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="P #,##0.00" isBlankWhenNull="true">
+				<reportElement x="41" y="17" width="69" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{user}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="17" width="37" height="13"/>
+				<textElement/>
+				<text><![CDATA[User:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
